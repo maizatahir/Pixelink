@@ -1,20 +1,24 @@
 <template>
   <div class="container">
-    <!-- Navbar -->
     <nav class="navbar">
-      <div>
+      <div class="logo">
         <h1 class="name">PIXELINK</h1>
         <h3 class="base">Print Lab</h3>
       </div>
 
-      <ul :class="{ open: menuOpen }">
-        <li><a href="#services" @click="toggleMenu">Services</a></li>
-        <li><a href="#gallery" @click="toggleMenu">Gallery</a></li>
-        <li><a href="#contact" @click="toggleMenu">Contact</a></li>
+      <div class="menu-icon" @click="toggleMenu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+
+      <ul :class="{ open: menuOpen }" class="nav-links">
+        <li><a href="#services" @click="closeMenu">Services</a></li>
+        <li><a href="#gallery" @click="closeMenu">Gallery</a></li>
+        <li><a href="#contact" @click="closeMenu">Contact</a></li>
       </ul>
     </nav>
 
-    <!-- Hero Section with Slideshow -->
     <section class="hero">
       <div class="slideshow">
         <div
@@ -32,19 +36,6 @@
       </div>
     </section>
 
-    <!-- About Section -->
-    <section id="services" class="section">
-      <h1 style="font-weight: bolder;">About Us</h1>
-      <div class="grid">
-        <div class="card">
-          <h3>
-            At PIXELINK, we specialize in premium custom T-shirt printing and a wide range of printing solutions tailored to your needs. Whether you need Screen Printing, Puff Printing, 3D Printing, DTF Stickers, Vinyl Stickers, High-Visible Reflective Stickers, or Rhinestone designs, we’ve got you covered!
-          </h3>
-        </div>
-      </div>
-    </section>
-
-    <!-- Services Section -->
     <section id="services" class="section">
       <h1 style="font-weight: bolder;">Our Services</h1>
       <div class="grid">
@@ -63,7 +54,6 @@
       </div>
     </section>
 
-    <!-- Gallery Section -->
     <section id="gallery" class="section">
       <h1 style="font-weight: bolder;">Gallery</h1>
       <div class="grid gallery">
@@ -73,11 +63,9 @@
         <img src="/g3.jpeg" alt="" />
         <img src="/g4.jpeg" alt="" />
         <img src="/g5.jpeg" alt="Shirt" />
-
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <section id="contact" class="section">
         <h2>Contact Us</h2>
@@ -108,12 +96,15 @@ export default {
     toggleMenu() {
       this.menuOpen = !this.menuOpen;
     },
+    closeMenu() {
+      this.menuOpen = false;
+    },
     nextSlide() {
       this.currentSlide = (this.currentSlide + 1) % this.images.length;
     },
   },
   mounted() {
-    setInterval(this.nextSlide, 3000); // Change slide every 3 seconds
+    setInterval(this.nextSlide, 3000);
   },
 };
 </script>
@@ -128,7 +119,7 @@ export default {
 
 .base {
   font-style: italic;
-  margin-left: 104px;
+  margin-left: 10px;
 }
 
 /* Navbar */
@@ -146,16 +137,57 @@ export default {
   z-index: 1000;
 }
 
-.navbar ul {
+.nav-links {
   list-style: none;
   display: flex;
   gap: 20px;
 }
 
-.navbar ul li a {
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
   color: white;
   text-decoration: none;
   font-weight: bold;
+}
+
+/* Menu Icon for Mobile */
+.menu-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: white;
+}
+
+/* Mobile Dropdown Menu */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #333;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
 }
 
 /* Hero Section */
@@ -173,12 +205,10 @@ export default {
 }
 
 /* Slideshow */
-
-/* Slideshow */
 .slideshow {
   position: absolute;
- justify-content: center;
-   top:15%;
+  justify-content: center;
+  top: 15%;
   width: 100%;
   height: 100%;
   overflow: visible;
@@ -188,7 +218,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-size: 100% 100%; /* Stretch to fit */
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
@@ -249,11 +279,9 @@ export default {
   background: #333;
   color: white;
   text-align: center;
-  padding: 15px;
-  margin-top: 20px;
+  padding: 20px;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 600px) {
   .hero h1 {
     font-size: 24px;
