@@ -119,7 +119,7 @@ export default {
 
 .base {
   font-style: italic;
-  margin-left: 10px;
+  margin-top: -16px;
 }
 
 /* Navbar */
@@ -218,7 +218,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-size: cover;
+  background-size:auto;
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
